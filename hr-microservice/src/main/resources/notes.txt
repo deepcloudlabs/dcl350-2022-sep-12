@@ -1,0 +1,53 @@
+1. start mysql server
+   c:\DEVEL\stage\var\scripts\start-mysqld.bat
+
+2. use mysql-cli to connect the mysql server
+   c:\DEVEL\stage\var\scripts\mysql-cli.bat
+
+3. Drop database hrdb if exists:
+	mysql> drop database hrdb ;
+	Query OK, 1 row affected (0.02 sec)
+
+4. Create database hrdb
+	mysql> create database hrdb ;
+	Query OK, 1 row affected (0.00 sec)  
+
+5. Start kafka server
+
+	a. start zookeeper
+		c:\DEVEL\stage\var\scripts\start-zookeper.bat
+		
+	b. start kafka broker	  
+		c:\DEVEL\stage\var\scripts\start-kafka-broker.bat
+		
+6. Start hr-microservice using Boot Dashboard
+
+7. Make sure that the table "employees" is created successfully:
+
+mysql> use hrdb
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_hrdb |
++----------------+
+| employees      |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> desc employees;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| identity   | varchar(255) | NO   | PRI | NULL    |       |
+| yil        | int(11)      | YES  |     | NULL    |       |
+| currency   | int(11)      | YES  |     | NULL    |       |
+| department | varchar(255) | YES  |     | NULL    |       |
+| fname      | varchar(255) | YES  |     | NULL    |       |
+| iban       | varchar(255) | YES  |     | NULL    |       |
+| jobStyle   | varchar(255) | YES  |     | NULL    |       |
+| lname      | varchar(255) | YES  |     | NULL    |       |
+| img        | longblob     | YES  |     | NULL    |       |
+| salary     | double       | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+		
