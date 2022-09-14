@@ -50,4 +50,15 @@ mysql> desc employees;
 | salary     | double       | NO   |     | NULL    |       |
 +------------+--------------+------+-----+---------+-------+
 10 rows in set (0.01 sec)
-		
+
+OpenAPI Documentation:
+======================		
+http://localhost:8200/hr/api/v1/swagger-ui.html		
+
+i18n:
+=====
+java -Duser.language=it -Duser.country=TR -jar hr-microservice.jar
+ValidationMesssage_tr.properties
+ValidationMesssage_it.properties
+
+

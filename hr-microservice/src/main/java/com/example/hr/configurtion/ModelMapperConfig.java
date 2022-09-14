@@ -50,14 +50,14 @@ public class ModelMapperConfig {
 		   context -> { 
 			   var request = context.getSource();
 			   return new Employee.Builder(request.getIdentity())
-					               .fullName(request.getFirstName(), request.getLastName())
-					               .salary(request.getSalary(), request.getCurrency())
-					               .iban(request.getIban())
-					               .birthYear(request.getBirthYear())
-					               .photo(request.getPhoto())
-					               .department(request.getDepartment())
-					               .jobStyle(request.getJobStyle())
-					              .build();   
+		               .fullName(request.getFirstName(), request.getLastName())
+		               .salary(request.getSalary(), request.getCurrency())
+		               .iban(request.getIban())
+		               .birthYear(request.getBirthYear())
+		               .photo(request.getPhoto())
+		               .department(request.getDepartment())
+		               .jobStyle(request.getJobStyle())
+		              .build();
 		   };
    
    private static final Converter<EmployeeEntity,Employee> EMPLOYEE_ENTITY_TO_EMPLOYEE_CONVERTER =

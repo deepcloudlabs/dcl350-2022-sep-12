@@ -14,6 +14,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import com.example.hr.dto.request.HireEmployeeRequest;
 import com.example.hr.dto.response.EmployeeResponse;
 import com.example.hr.service.HrService;
+import com.example.validation.TcKimlikNo;
 
 // Resource-oriented REST API
 // Resource (REST Architecture) -> Model (MVC) -> Aggregate/Entity (DDD)
@@ -30,17 +31,17 @@ public class HrRestController {
 	}
 
 	@GetMapping("{identity}")
-	public EmployeeResponse getEmployee(@PathVariable String identity){
+	public EmployeeResponse getEmployee(@PathVariable @TcKimlikNo String identity){
 		return hrService.findEmployeeByIdentity(identity);
 	}
 	
 	@PostMapping
-	public EmployeeResponse hireEmployee(@RequestBody HireEmployeeRequest request) {
+	public EmployeeResponse hireEmployee(@RequestBody @Validated HireEmployeeRequest request) {
 		return hrService.hireEmployee(request);
 	}
 	
 	@DeleteMapping("{identity}")
-	public EmployeeResponse fireEmployee(@PathVariable String identity) {
+	public EmployeeResponse fireEmployee(@PathVariable @TcKimlikNo String identity) {
 		return hrService.fireEmployee(identity);
 	}
 }
