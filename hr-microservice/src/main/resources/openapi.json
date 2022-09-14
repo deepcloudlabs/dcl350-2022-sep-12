@@ -1,0 +1,331 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OpenAPI definition",
+		"version": "v0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8200/hr/api/v1",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/employees": {
+			"post": {
+				"tags": [
+					"hr-rest-controller"
+				],
+				"operationId": "hireEmployee",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HireEmployeeRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"502": {
+						"description": "Bad Gateway",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ErrorMessage"
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/EmployeeResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/employees/{identity}": {
+			"get": {
+				"tags": [
+					"hr-rest-controller"
+				],
+				"operationId": "getEmployee",
+				"parameters": [
+					{
+						"name": "identity",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"502": {
+						"description": "Bad Gateway",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ErrorMessage"
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/EmployeeResponse"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"hr-rest-controller"
+				],
+				"operationId": "fireEmployee",
+				"parameters": [
+					{
+						"name": "identity",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"502": {
+						"description": "Bad Gateway",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/ErrorMessage"
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorMessage"
+								}
+							}
+						}
+					},
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/EmployeeResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"ErrorMessage": {
+				"type": "object",
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					}
+				}
+			},
+			"HireEmployeeRequest": {
+				"required": [
+					"currency",
+					"department",
+					"firstName",
+					"jobStyle",
+					"lastName",
+					"photo"
+				],
+				"type": "object",
+				"properties": {
+					"identity": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"iban": {
+						"type": "string"
+					},
+					"salary": {
+						"minimum": 5500,
+						"type": "number",
+						"format": "double"
+					},
+					"currency": {
+						"type": "string",
+						"enum": [
+							"EUR",
+							"USD",
+							"TL"
+						]
+					},
+					"birthYear": {
+						"minimum": 1940,
+						"type": "integer",
+						"format": "int32"
+					},
+					"department": {
+						"type": "string",
+						"enum": [
+							"SALES",
+							"FINANCE",
+							"HR",
+							"IT"
+						]
+					},
+					"jobStyle": {
+						"type": "string",
+						"enum": [
+							"FULL_TIME",
+							"PART_TIME"
+						]
+					},
+					"photo": {
+						"type": "string"
+					}
+				}
+			},
+			"EmployeeResponse": {
+				"type": "object",
+				"properties": {
+					"identity": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"iban": {
+						"type": "string"
+					},
+					"salary": {
+						"type": "number",
+						"format": "double"
+					},
+					"currency": {
+						"type": "string",
+						"enum": [
+							"EUR",
+							"USD",
+							"TL"
+						]
+					},
+					"birthYear": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"department": {
+						"type": "string",
+						"enum": [
+							"SALES",
+							"FINANCE",
+							"HR",
+							"IT"
+						]
+					},
+					"jobStyle": {
+						"type": "string",
+						"enum": [
+							"FULL_TIME",
+							"PART_TIME"
+						]
+					},
+					"photo": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}

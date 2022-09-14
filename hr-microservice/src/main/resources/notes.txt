@@ -61,4 +61,22 @@ java -Duser.language=it -Duser.country=TR -jar hr-microservice.jar
 ValidationMesssage_tr.properties
 ValidationMesssage_it.properties
 
+Integration
+===========
+Entity -> Resource-oriented Rest API on Http -> pull/request-response/ ->, <-
+		  WebSocket -> Low-latency              <-->
 
+Event  -> Messaging
+          WebSocket -> 
+          
+Http/WebSocket Protocol Handling ->  Embedded Tomcat -> Servlet -> Thread per request -> Thread Pool (50 Threads)
+                                                                   Waiting
+                                                                   
+                                     Reactive Application/MicroService -> Spring 5
+                                              Jetty -> Reactive Container -> Thread Running -> Platform Thread
+                                     		  Netty
+                                     		  
+                                     		  	
+                                     Java 19 -> incubation -> Structured Concurrency   -> Coroutine
+                                                Virtual Thread  -> User-level Thread   -> 10k, 100k 
+                                                Platform Thread -> Kernel-level Thread ->                                                  
