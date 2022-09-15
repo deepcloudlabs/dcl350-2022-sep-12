@@ -1,0 +1,12 @@
+1. Change configuration and save the file
+   notepad lottery-test.properties
+   
+2. Commit changes
+   git add .
+   git commit -m "initial commit"
+   
+3. Send POST request to the instance
+   curl -X POST  "http://localhost:4100/lottery/api/v1/actuator/refresh" -d "{}" -H "Accept: application/json" -H "Content-Type: application/json"   	   
+   
+4. Observe the change at the instance
+   curl http://localhost:4100/lottery/api/v1/numbers?column=5   
