@@ -23,7 +23,7 @@ public final class TcKimlikNo {
 			throw new IllegalArgumentException("%s is not a valid identity no.".formatted(value));
 		// 2. object pooling (= caching)
 		var cachedIdentity = CACHE.get(value);
-		if (Objects.isNull(value)) {
+		if (Objects.isNull(cachedIdentity)) {
 			cachedIdentity = new TcKimlikNo(value);
 			CACHE.put(value, cachedIdentity);
 		}
