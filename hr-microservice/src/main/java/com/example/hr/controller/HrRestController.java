@@ -27,6 +27,7 @@ public class HrRestController {
 	private final HrService hrService;
 	
 	public HrRestController(HrService hrService) {
+		System.out.println(hrService.getClass().getName()); 
 		this.hrService = hrService;
 	}
 
