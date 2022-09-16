@@ -33,6 +33,7 @@ public class HrRestController {
 
 	@GetMapping("{identity}")
 	public EmployeeResponse getEmployee(@PathVariable @TcKimlikNo String identity){
+		System.err.println("HrRestController::getEmployee(%s) is called.".formatted(identity));
 		return hrService.findEmployeeByIdentity(identity);
 	}
 	

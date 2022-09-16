@@ -3,6 +3,7 @@ package com.example.hr.adapter;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import com.example.hexagonal.Adapter;
@@ -14,6 +15,7 @@ import com.example.hr.repository.EmployeeRepository;
 
 @Repository
 @Adapter(port = EmployeeRepository.class)
+@ConditionalOnProperty(name="persistenceTarget", havingValue = "mysql")
 public class EmployeeRepositoryJpaAdapter implements EmployeeRepository {
 	private final EmployeeEntityRepository empRepo;
 	private final ModelMapper modelMapper;

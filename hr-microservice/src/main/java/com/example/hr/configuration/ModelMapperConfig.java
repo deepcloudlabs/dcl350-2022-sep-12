@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.hr.document.EmployeeDocument;
 import com.example.hr.domain.Employee;
 import com.example.hr.dto.request.HireEmployeeRequest;
 import com.example.hr.dto.response.EmployeeResponse;
@@ -46,6 +47,24 @@ public class ModelMapperConfig {
 			   return entity;
 		   };
 	   
+   private static final Converter<Employee,EmployeeDocument> EMPLOYEE_TO_EMPLOYEE_DOCUMENT_CONVERTER =
+		   context -> {
+			   var document = new EmployeeDocument();
+			   var employee = context.getSource();
+			   document.setIdentity(employee.getTcKimlikNo().getValue());
+			   document.setFirstName(employee.getFullName().getFirstName());
+			   document.setLastName(employee.getFullName().getLastName());
+			   document.setIban(employee.getIban().getValue());
+			   document.setSalary(employee.getSalary().getValue());
+			   document.setCurrency(employee.getSalary().getCurrency());
+			   document.setBirthYear(employee.getBirthYear().getValue());
+			   document.setDepartment(employee.getDepartment());
+			   document.setJobStyle(employee.getJobStyle());
+			   document.setPhoto(employee.getPhoto().getBase64EncodedValues());
+			   return document;
+		   };
+			   
+
    private static final Converter<HireEmployeeRequest,Employee> HIRE_EMPLOYEE_REQUEST_TO_EMPLOYEE_CONVERTER =
 		   context -> { 
 			   var request = context.getSource();
@@ -73,14 +92,30 @@ public class ModelMapperConfig {
 					   .jobStyle(entity.getJobStyle())
 					   .build();   
 		   };
+
+		   private static final Converter<EmployeeDocument,Employee> EMPLOYEE_DOCUMENT_TO_EMPLOYEE_CONVERTER =
+				   context -> { 
+					   var document = context.getSource();
+					   return new Employee.Builder(document.getIdentity())
+							   .fullName(document.getFirstName(), document.getLastName())
+							   .salary(document.getSalary(), document.getCurrency())
+							   .iban(document.getIban())
+							   .birthYear(document.getBirthYear())
+							   .photo(document.getPhoto())
+							   .department(document.getDepartment())
+							   .jobStyle(document.getJobStyle())
+							   .build();   
+				   };
 		   
 	@Bean
 	public ModelMapper createModelMapper() {
 		var modelMapper = new ModelMapper();
 		modelMapper.addConverter(EMPLOYEE_TO_EMPLOYEE_RESPONSE_CONVERTER, Employee.class, EmployeeResponse.class);
 		modelMapper.addConverter(EMPLOYEE_TO_EMPLOYEE_ENTITY_CONVERTER, Employee.class, EmployeeEntity.class);
+		modelMapper.addConverter(EMPLOYEE_TO_EMPLOYEE_DOCUMENT_CONVERTER, Employee.class, EmployeeDocument.class);
 		modelMapper.addConverter(HIRE_EMPLOYEE_REQUEST_TO_EMPLOYEE_CONVERTER, HireEmployeeRequest.class, Employee.class);
 		modelMapper.addConverter(EMPLOYEE_ENTITY_TO_EMPLOYEE_CONVERTER, EmployeeEntity.class, Employee.class);
+		modelMapper.addConverter(EMPLOYEE_DOCUMENT_TO_EMPLOYEE_CONVERTER, EmployeeDocument.class, Employee.class);
 		return modelMapper;
 	}
 }

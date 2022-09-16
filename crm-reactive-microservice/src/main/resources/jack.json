@@ -1,0 +1,15 @@
+{
+	"customerId": "1",
+	"fullName": "jack bauer",
+	"email": "jack.bauer@example.com",
+	"sms": "+90-555-5555",
+	"birthyear": 1963,
+	"addresses": [
+		{
+			"type": "HOME",
+			"city": "istanbul",
+			"country": "turkiye",
+			"line": "kuyu sokak"
+		}
+	]
+}

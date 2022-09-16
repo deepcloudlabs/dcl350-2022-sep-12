@@ -1,0 +1,12 @@
+Domain-Driven Design (Eric Evans, 2003)(Blue Book)
+Event Storming
+
+Domain 				         Design               MSA
+======                       ======               ===
+Problem Space	------->	 Solution Space
+		Modeling/Abstraction
+		   
+Sub-domain (HR) ------->     Bounded-Context -->  1 or more MicroServices
+                             Ubiquitous Language (UL) 
+                             Artifact <--- UL 
+                             Source Code, UI, UserManual,  
